@@ -1,4 +1,4 @@
-from iris.pca import classify_score
+from iris.knn import classify_score
 
 
 def main():
