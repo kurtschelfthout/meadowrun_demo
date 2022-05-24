@@ -12,4 +12,4 @@ def load_iris_dataset():
 def split(iris_data):
     x = iris_data.iloc[:,2:-1].values
     y = iris_data.iloc[:,-1].values
-    return train_test_split(x, y, test_size=.20, random_state=42)
+    return train_test_split(x, y, test_size=.20, random_state=42465)
