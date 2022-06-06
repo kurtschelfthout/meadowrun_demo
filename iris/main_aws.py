@@ -1,21 +1,25 @@
 import asyncio
 
-from meadowrun import Deployment, EC2AllocHost, run_function
+from meadowrun import AllocCloudInstance, Deployment, run_function
 
 from iris.knn import classify_score
 
 
 async def main():
     train_scores, test_scores = await run_function(
-        lambda: classify_score(1, 20),
-        EC2AllocHost(
+        classify_score, # the function to run
+        AllocCloudInstance( # properties of the VM on which to run the function
             logical_cpu_required=2,
             memory_gb_required=16,
-            interruption_probability_threshold=15),
-        Deployment.git_repo(
-            "https://github.com/kurtschelfthout/meadowrun_demo",
-            conda_yml_file="env.yml",
-        )
+            interruption_probability_threshold=15,
+            cloud_provider="EC2"),
+        await Deployment.mirror_local(), # what to deploy on the VM - here local code and conda env
+        # Alternative which doesn't need local checkout/conda env:
+        # Deployment.git_repo(
+        #     "https://github.com/kurtschelfthout/meadowrun_demo",
+        #     conda_yml_file="env.yml",
+        # )
+        (1,20) # arguments to classify_score
     )
     print()
     print(f"Training set scores: {train_scores}")

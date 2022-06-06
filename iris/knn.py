@@ -4,7 +4,9 @@ from sklearn.metrics import accuracy_score
 
 from iris.helpers import load_iris_dataset, split
 
-def classify_score(n_neighbors_start, n_neighbors_stop):
+def classify_score(n_neighbors_start, n_neighbors_stop = None):
+    if n_neighbors_stop is None:
+        n_neighbors_stop = n_neighbors_start + 1
     iris_data = load_iris_dataset()
 
     x_train, x_test, y_train, y_test = split(iris_data)
