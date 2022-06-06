@@ -7,19 +7,21 @@ from iris.knn import classify_score
 
 async def main():
     train_scores, test_scores = await run_function(
-        classify_score, # the function to run
-        AllocCloudInstance( # properties of the VM on which to run the function
+        # the function to run
+        lambda: classify_score(1,20), 
+        # properties of the VM on which to run the function
+        AllocCloudInstance( 
             logical_cpu_required=2,
             memory_gb_required=16,
             interruption_probability_threshold=15,
             cloud_provider="EC2"),
-        await Deployment.mirror_local(), # what to deploy on the VM - here local code and conda env
+        # what to deploy on the VM - here local code and conda env
+        await Deployment.mirror_local(),
         # Alternative which doesn't need local checkout/conda env:
         # Deployment.git_repo(
         #     "https://github.com/kurtschelfthout/meadowrun_demo",
         #     conda_yml_file="env.yml",
         # )
-        (1,20) # arguments to classify_score
     )
     print()
     print(f"Training set scores: {train_scores}")
