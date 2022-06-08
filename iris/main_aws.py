@@ -9,15 +9,15 @@ async def main():
     train_scores, test_scores = await run_function(
         # the function to run
         lambda: classify_score(1,20), 
-        # properties of the VM on which to run the function
+        # properties of the VM that runs the function
         AllocCloudInstance( 
             logical_cpu_required=2,
             memory_gb_required=16,
             interruption_probability_threshold=15,
             cloud_provider="EC2"),
-        # what to deploy on the VM - here local code and conda env
+        # what to deploy on the VM - in this case local code and conda env
         await Deployment.mirror_local(),
-        # Alternative which doesn't need local checkout/conda env:
+        # Alternatively run from a git repository:
         # Deployment.git_repo(
         #     "https://github.com/kurtschelfthout/meadowrun_demo",
         #     conda_yml_file="env.yml",
