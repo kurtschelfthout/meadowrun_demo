@@ -12,7 +12,7 @@ async def main():
         # run on an AWS EC2 instance
         AllocCloudInstance(cloud_provider="EC2"),
         # requirements for the EC2 instance
-        Resources(logical_cpu=2, memory_gb=16, max_eviction_rate=15),
+        Resources(logical_cpu=1, memory_gb=1, max_eviction_rate=80),
         # what to deploy on the VM - in this case local code and env
         await Deployment.mirror_local(),
         # Alternatively run from a git repository:
