@@ -1,6 +1,6 @@
 import asyncio
 
-from meadowrun import AllocCloudInstance, Deployment, Resources, run_function
+from meadowrun import AllocEC2Instance, Deployment, Resources, run_function
 
 from iris.knn import classify_score
 
@@ -10,7 +10,7 @@ async def main():
         # the function to run
         lambda: classify_score(1,20), 
         # run on an AWS EC2 instance
-        AllocCloudInstance(cloud_provider="EC2"),
+        AllocEC2Instance(),
         # requirements for the EC2 instance
         Resources(logical_cpu=1, memory_gb=4, max_eviction_rate=80),
         # what to deploy on the VM - in this case local code and env

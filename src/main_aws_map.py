@@ -1,6 +1,6 @@
 import asyncio
 
-from meadowrun import AllocCloudInstance, Deployment, Resources, run_map
+from meadowrun import AllocEC2Instance, Deployment, Resources, run_map
 
 from iris.knn import classify_score
 
@@ -12,7 +12,7 @@ async def main():
         # the list of arguments - function is called once for each argument
         list(range(1,21)),
         # run on AWS EC2 instances
-        AllocCloudInstance(cloud_provider="EC2"),
+        AllocEC2Instance(),
         # run 4 workers
         num_concurrent_tasks=4,
         # resources required per worker
